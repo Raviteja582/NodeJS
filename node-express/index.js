@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 
 
 const dishRouter =require('./routes/dishRouter');
+const promoRouter = require('./routes/promoRouter');
+const leaderRouter = require('./routes/leaderRouter');
 
 
 const hostname= 'localhost';
@@ -14,28 +16,16 @@ const app = express();
 app.use(morgan('dev'));  /*  So, this is the development version. So, it will print out additional information to the screen as required. */
 app.use(bodyParser.json());
 
-
-/* app.get('/dishes/:dishID', (req,res,next) => {
-    res.end('Will Send details of the dish '+ req.params.dishID + ' to you!');
-});
-
-app.post('/dishes/:dishID', (req,res,next) => {
-    res.statusCode = 403;
-    res.end('PUT operation not supported on /dishes/'+req.params.dishID);
-});
-
-app.put('/dishes/:dishID', (req,res,next) => {
-    res.write('Updating the dish: '+ req.params.dishID+ '\n');
-    res.end('Will update the dish: '+ req.body.name+ ' with details: '+ req.body.description);
-});
-
-app.delete('/dishes/:dishID', (req,res,next) => {
-    res.end('Deleting dish: '+ req.params.dishID);
-});
- */
-
-
+/* It handles Dishes and DishID end point in REST API */
 app.use('/dishes',dishRouter);
+
+/* It handles Promotions and PromotionsID end point in REST API */
+app.use('/promotions',promoRouter);
+
+/*  It handles Leaders and LeadersID end point in REST API */
+app.use('/leaders',leaderRouter);
+
+
 app.use(express.static(__dirname+ '/public'))     /* I'm going to declare up use and express static. This tells Express to serve up the static files from double underscore dirname. So, this says the root of this project and they will find those files in double_dirname, plus/ public. */
 
 app.use((req,res,next) =>{
