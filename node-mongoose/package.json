@@ -1,16 +1,12 @@
 {
-  "name": "node-mongo",
+  "name": "node-mongoose",
   "version": "1.0.0",
-  "description": "MongoDb server",
+  "description": "Node Mongoose set up",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index"
   },
   "author": "Raviteja582",
-  "license": "ISC",
-  "dependencies": {
-    "assert": "^2.0.0",
-    "mongodb": "^3.6.0"
-  }
+  "license": "ISC"
 }
