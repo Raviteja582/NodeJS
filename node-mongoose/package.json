@@ -8,5 +8,8 @@
     "start": "node index"
   },
   "author": "Raviteja582",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.10.0"
+  }
 }
