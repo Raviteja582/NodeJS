@@ -39,6 +39,40 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
+function auth(req,res,next){
+	console.log(req.headers);
+
+	var authHeader = req.headers.authorization;
+
+	if(!authHeader){
+		var err = new Error('Your are not Authenticated');
+
+		res.setHeader('WWW-Authenticate','Basic');
+		err.status=401;
+		return next(err);
+	}
+	var auth = new Buffer(authHeader.split(' ')[1],'base64').toString().split(':');
+
+	var username=auth[0]
+	var password=auth[1]
+
+	if(username === 'admin' && password === 'password'){
+		next();
+	}
+	else{
+		var err = new Error('Your are not Authenticated');
+
+		res.setHeader('WWW-Authenticate','Basic');
+		err.status=401;
+		return next(err);
+	}
+}
+
+app.use(auth);  /*  So by doing this, what we are specifying is the default, the client can access any of these, either their static resources in the public folder, or any of the resources, dishes, promotions, or leaders, or even users as we will see later on. */
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
