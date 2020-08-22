@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+var passport = require('passport');
+var authenticate = require('./authenticate');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -50,27 +52,23 @@ app.use(session({
 	store: new FileStore()
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 function auth(req,res,next){
-	console.log(req.session);
+	console.log(req.user);
 
-	if(!req.session.user){
-		var err = new Error('Your are not Authenticated');
-		err.status=401;
-		return next(err);
-	}
-	else{
-		if(req.session.user==='authenticated'){
-			next();
-		}
-		else{
-			var err = new Error('Your are not Authenticated');
-			err.status=403;
-			return next(err);
-		}
-	}
+    if (!req.user) {
+      var err = new Error('You are not authenticated!');
+      err.status = 403;
+      next(err);
+    }
+    else {
+          next();
+    }
 }
 
 app.use(auth);  /*  So by doing this, what we are specifying is the default, the client can access any of these, either their static resources in the public folder, or any of the resources, dishes, promotions, or leaders, or even users as we will see later on. */
