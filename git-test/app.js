@@ -16,6 +16,7 @@ var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishRouter');
 var leaderRouter = require('./routes/leaderRouter');
 var promoRouter = require('./routes/promoRouter');
+var uploadRouter = require('./routes/uploadRouter');
 var config = require('./config');
 
 /* Connecting to Database */
@@ -87,7 +88,7 @@ app.use(auth); */  /*  So by doing this, what we are specifying is the default, 
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.use('/imageUpload',uploadRouter);
 app.use('/dishes',dishRouter);
 app.use('/promotions',promoRouter);
 app.use('/leaders',leaderRouter);
