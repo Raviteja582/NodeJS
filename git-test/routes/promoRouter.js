@@ -10,7 +10,7 @@ const promos = require('../models/promo');
 promoRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
 .get(cors.cors,(req,res,next) => {
-    promos.find({})
+    promos.find(req.query)
     .then( (promos) => {
         res.statusCode=200;
         res.contentType('Content-Type','application/json');
