@@ -18,7 +18,6 @@ var leaderRouter = require('./routes/leaderRouter');
 var promoRouter = require('./routes/promoRouter');
 var uploadRouter = require('./routes/uploadRouter');
 var favoriteRouter = require('./routes/favoriteRouter');
-var commentRouter = require('./routes/commentRouter');
 var config = require('./config');
 
 /* Connecting to Database */
